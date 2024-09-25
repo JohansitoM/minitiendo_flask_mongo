@@ -103,7 +103,56 @@ def consultar(id):
         except pymongo.errors.PyMongoError as error:
             mensaje = f"Error en la base de datos: {str(error)}"
             return redirect('/')
-    
+
+@app.route("/actualizar", methods=['POST'])
+def actualizarProducto():
+    try: 
+        if(request.method == 'POST'):
+            # Recibir los datos del formulario
+            codigo = int(request.form['txtCodigo'])
+            nombre = request.form['txtNombre']
+            precio = int(request.form['txtPrecio'])
+            categoria = request.form['cbCategoria']
+            id = ObjectId(request.form['id'])
+            foto = request.files['fileFoto']
+            # Si se ha subido una nueva foto
+            if(foto.filename != ""):
+                nombreArchivo = secure_filename(foto.filename)
+                listaNombreArchivo = nombreArchivo.rsplit(".", 1)
+                extension = listaNombreArchivo[1].lower()
+                nombreFoto = f"{codigo}.{extension}"
+                producto = {
+                    "_id": id, "codigo": codigo, "nombre": nombre,
+                    "precio":precio, "categoria": categoria, "foto": nombreFoto
+                }
+            else:
+                # Si no se sube una nueva foto, mantener la actual
+                producto = { 
+                    "_id": id, "codigo": codigo, "nombre": nombre,
+                    "precio":precio, "categoria": categoria
+                }
+            criterio = {"_id": id}
+            consulta = {"$set": producto}
+            
+            # Verificar si el nuevo codigo ya existe de un producto diferente a sí mismo
+            existe = productos.find_one({"codigo": codigo, "_id": {"$ne": id}})
+            
+            if existe:
+                mensaje = 'Producto ya existe con ese código'
+                return render_template('frmActualizarProducto.html', mensaje = mensaje, producto = producto)
+            else:
+                resultado = productos.update_one(criterio, consulta)
+                
+                if resultado.acknowledged:
+                    mensaje = 'Producto actualizado'
+                    
+                    if foto.filename != '':
+                        # Guardar la nueva foto del producto en la ruta
+                        foto.save(os.path.join(app.config["UPLOAD_FOLDER"], nombreFoto))
+                    return redirect('/')
+    except pymongo.errors.PyMongoError as error:
+        mensaje = error
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(port = 5000, debug = True)

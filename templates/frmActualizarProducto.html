@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar 🔄</title>
+
+    <script src="../static/js/app.js"></script>
+
 </head>
 <body>
     <section></section>
         <h1>Actualizar producto</h1>
 
         <section>
-            <form action="/agregarProducto" method="post" enctype="multipart/form-data">
+            <form action="/actualizar" method="post" enctype="multipart/form-data">
                 <div>
-                    <label for="txtCodigo">Ingresa el código</label><br>
+                    <label for="txtCodigo">Código</label><br>
                     <input name="txtCodigo" class="bg-gray-200 p-2 rounded-lg" id="txtCodigo" type="text" placeholder="Código"
                     value="{{producto['codigo']}}">
                 </div>
@@ -37,9 +40,15 @@
                 </div>
                 <div>
                     <label for="fileFoto">Ingresa las fotos</label><br>
-                    <input name="fileFoto" class="bg-gray-200 p-2 rounded-lg" id="fileFoto" type="file" placeholder="Fotos"
+                    <input required onchange="visualizarFoto(this)" name="fileFoto" class="bg-gray-200 p-2 rounded-lg" id="fileFoto" type="file" placeholder="Fotos"
                     value="{{producto['foto']}}">
                 </div>
+                <div>
+                    <img id="imagenProducto" src="../static/img/{{producto['foto']}}" height="100" alt="">
+                </div>
+
+                <!-- #Campo oculto para guardar el id del producto -->
+                <input type="hidden" name="id" id="id" value="{{producto['_id']}}">
                 <div>
                     <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
                     <button class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
@@ -47,6 +56,9 @@
                     </button>
                 </div>
             </form>
+            <script>
+                document.getElementById("cbCategoria").value = "{{producto['categoria']}}";
+            </script>
             <h3>{{mensaje}}</h3>
         </section>
     </section>
