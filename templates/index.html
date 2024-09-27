@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- <header class="w-screen">
+        <header class="w-screen">
             {% block encabezado %}
             {% endblock %}
         </header>
@@ -32,51 +32,7 @@
         <footer class="w-screen">
             {% block piepagina %}
             {% endblock %}
-        </footer> -->
-
-        <section>
-            <section>
-                <h3>Tiendita</h3>
-                <a href="/agregarProducto"><button class="btn btn-primary">Agregar</button></a>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Categoría</th>
-                                <th>Foto</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for producto in productos %}
-                            <tr class="h-12 border-2 border-black">
-                                <td class="h-12 text-center text-sm">{{ producto['codigo'] }}</td>
-                                <td class="h-12 text-center text-sm">{{ producto['nombre'] }}</td>
-                                <td class="h-12 text-center text-sm">{{ producto['precio'] }}</td>
-                                <td class="h-12 text-center text-sm">{{ producto['categoria'] }}</td>
-                                <td >
-                                    {% if producto.foto.startswith('http') %}
-                                        <img class="h-12" src="{{ producto.foto }}" alt="{{ producto.nombre }}">
-                                    {% else %}
-                                        <img class="h-12" src="{{ url_for('static', filename='img/' + producto.foto) }}" alt="{{ producto.nombre }}">
-                                    {% endif %}
-
-                                </td>       
-                                <td>
-                                    <a href="/consultar/{{producto['_id']}}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <i class="fa-solid fa-trash"></i>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div>{{mensaje}}</div>
-            </section>
-        </section>
+        </footer>
     </div>
 </body>
 </html>

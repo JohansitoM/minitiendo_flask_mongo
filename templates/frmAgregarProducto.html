@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Icons -->
-    <script src="https://kit.fontawesome.com/e336c2441f.js" crossorigin="anonymous"></script>
-    <title>Agregar producto 🛍️</title>
-</head>
-<body>
+{% extends "index.html" %}
+
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock %}
+
+{% block contenido %}
     <section>
-        <h1>Agrega un nuevo producto</h1>
+        <h1>Agrega un nuevo producto 🛍️</h1>
 
         <section>
             <form action="/agregarProducto" method="post" enctype="multipart/form-data">
@@ -54,5 +53,8 @@
             <h3>{{mensaje}}</h3>
         </section>
     </section>
-</body>
-</html>
+{% endblock %}
+
+{% block piepagina %}
+    {% include "piePagina.html" %}
+{% endblock %}

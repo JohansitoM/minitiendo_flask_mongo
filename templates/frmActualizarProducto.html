@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar 🔄</title>
+{% extends "index.html" %}
 
-    <script src="../static/js/app.js"></script>
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{% endblock %}
 
-</head>
-<body>
-    <section></section>
-        <h1>Actualizar producto</h1>
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+    <section>
+        <h1>Actualizar producto 🔄</h1>
 
         <section>
             <form action="/actualizar" method="post" enctype="multipart/form-data">
@@ -62,5 +62,8 @@
             <h3>{{mensaje}}</h3>
         </section>
     </section>
-</body>
-</html>
+{% endblock %}
+
+{% block piepagina %}
+    {% include "piePagina.html" %}
+{% endblock %}

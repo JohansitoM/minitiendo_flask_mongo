@@ -1,11 +1,33 @@
 {% extends "index.html" %} 
 
-{% block encabeado %} 
+{% block encabezado %} 
     {% include "encabezado.html" %}
 {% endblock %} 
 
 {% block contenido %}
-    <div class="frmlogin mt-3" ></div>
+    <section class="frmlogin mt-3" >
+        <h3>Iniciar sesión</h3>
+        <form action="/" method="post">
+            <section>
+                <label for="txtUsername">Ingresa tu nombre de usuario</label>
+                <input type="text" name="txtUsername" id="txtUsername" required placeholder="Usuario">
+            </section>
+            <section>
+                <label for="txtUsername">Ingresa tu contraseña</label>
+                <input type="password" name="txtPassword" id="txtPassword" required placeholder="Contraseña">
+            </section>
+            <section>
+                <button>Ingresar</button>
+                <button>Ya no quiero UnU</button>
+            </section>
+        </form>
+
+        {% if mensaje %}
+            <script>
+                Swal.fire("Ingresar al sistema", '{{ mensaje }}', "info")
+            </script>
+        {% endif %}
+    </section>
 {% enblock %} 
 
 {% block piepagina %} 
